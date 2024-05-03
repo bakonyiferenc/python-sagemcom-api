@@ -192,7 +192,8 @@ class SagemcomClient:
                 result = await response.text()
                 raise UnknownException(result)
 
-            result = await response.json()
+            payload = await response.read()
+            result = json.loads(payload.decode("ascii", errors="replace"))
             error = self.__get_response_error(result)
 
             # No errors
